@@ -16,6 +16,7 @@
 		2458560E29A65276003AAE28 /* PasswordUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2458560D29A65276003AAE28 /* PasswordUITests.swift */; };
 		2458561029A65276003AAE28 /* PasswordUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2458560F29A65276003AAE28 /* PasswordUITestsLaunchTests.swift */; };
 		2458561E29A65DB0003AAE28 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2458561D29A65DB0003AAE28 /* LoginView.swift */; };
+		2458562129A77DDF003AAE28 /* PasswordCriteriaView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2458562029A77DDF003AAE28 /* PasswordCriteriaView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,6 +50,7 @@
 		2458560D29A65276003AAE28 /* PasswordUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordUITests.swift; sourceTree = "<group>"; };
 		2458560F29A65276003AAE28 /* PasswordUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		2458561D29A65DB0003AAE28 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
+		2458562029A77DDF003AAE28 /* PasswordCriteriaView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordCriteriaView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -80,6 +82,7 @@
 			isa = PBXGroup;
 			children = (
 				245855EB29A65273003AAE28 /* Password */,
+				2458561F29A77DA8003AAE28 /* PasswordCriteriaView */,
 				2458561C29A655E1003AAE28 /* SystemFiles */,
 				2458560229A65276003AAE28 /* PasswordTests */,
 				2458560C29A65276003AAE28 /* PasswordUITests */,
@@ -134,6 +137,14 @@
 			);
 			name = SystemFiles;
 			path = Password;
+			sourceTree = "<group>";
+		};
+		2458561F29A77DA8003AAE28 /* PasswordCriteriaView */ = {
+			isa = PBXGroup;
+			children = (
+				2458562029A77DDF003AAE28 /* PasswordCriteriaView.swift */,
+			);
+			path = PasswordCriteriaView;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -268,6 +279,7 @@
 			files = (
 				245855F129A65273003AAE28 /* ViewController.swift in Sources */,
 				2458561E29A65DB0003AAE28 /* LoginView.swift in Sources */,
+				2458562129A77DDF003AAE28 /* PasswordCriteriaView.swift in Sources */,
 				245855ED29A65273003AAE28 /* AppDelegate.swift in Sources */,
 				245855EF29A65273003AAE28 /* SceneDelegate.swift in Sources */,
 			);

@@ -10,7 +10,7 @@ import UIKit
 class ViewController: UIViewController {
     
     let passwordLoginView = LoginView(placeHolderText: "New password")
-  
+    let passwordCriteriaView = PasswordCriteriaView()
     
     let stackView: UIStackView = {
       let stackView = UIStackView()
@@ -30,7 +30,9 @@ class ViewController: UIViewController {
         view.backgroundColor = .white
         
         view.addSubview(stackView)
-        stackView.addArrangedSubview(passwordLoginView)
+       // stackView.addArrangedSubview(passwordLoginView)
+        stackView.addArrangedSubview(passwordCriteriaView)
+        
         setupConstaints()
     }
     

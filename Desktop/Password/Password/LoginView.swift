@@ -128,7 +128,7 @@ extension LoginView {
             lockImageView.leadingAnchor.constraint(equalTo: leadingAnchor),
             
             passwordTextField1.leadingAnchor.constraint(equalTo: lockImageView.trailingAnchor,constant: 8),
-            passwordTextField1.widthAnchor.constraint(equalToConstant: 200),
+           // passwordTextField1.widthAnchor.constraint(equalToConstant: 200),
             
             eyeButtonView.centerYAnchor.constraint(equalTo: passwordTextField1.centerYAnchor),
             eyeButtonView.trailingAnchor.constraint(equalTo: trailingAnchor,constant: -8),
