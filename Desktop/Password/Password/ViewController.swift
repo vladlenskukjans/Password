@@ -10,9 +10,20 @@ import UIKit
 class ViewController: UIViewController {
     
     let passwordLoginView = LoginView(placeHolderText: "New password")
-    let passwordCriteriaView = PasswordCriteriaView()
+   // let passwordCriteriaView = PasswordCriteriaView()
+    let statusView = PasswordStatusView()
+    let confirmPasswordTextField = LoginView(placeHolderText: "Re-enter new password")
     
-    let stackView: UIStackView = {
+    let resetButton: UIButton = {
+        let button = UIButton(type: .system)
+        button.configuration = .filled()
+        button.setTitle("Resset password", for: .normal)
+       // button.addTarget(self, action: #selector(resetPasswordButtonTapped), for: .primaryActionTriggered)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        return button
+    }()
+    
+        let stackView: UIStackView = {
       let stackView = UIStackView()
         stackView.axis = .vertical
         stackView.spacing = 20
@@ -21,17 +32,16 @@ class ViewController: UIViewController {
         return stackView
     }()
     
-    
-    
-
     override func viewDidLoad() {
         super.viewDidLoad()
-        passwordLoginView.translatesAutoresizingMaskIntoConstraints = false
         view.backgroundColor = .white
         
         view.addSubview(stackView)
-       // stackView.addArrangedSubview(passwordLoginView)
-        stackView.addArrangedSubview(passwordCriteriaView)
+       stackView.addArrangedSubview(passwordLoginView)
+       // stackView.addArrangedSubview(passwordCriteriaView)
+        stackView.addArrangedSubview(statusView)
+        stackView.addArrangedSubview(confirmPasswordTextField)
+        stackView.addArrangedSubview(resetButton)
         
         setupConstaints()
     }

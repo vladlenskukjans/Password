@@ -9,6 +9,7 @@ import UIKit
 
 class PasswordCriteriaView: UIView {
     
+    
   
     let stackView: UIStackView = {
         let stack = UIStackView()
@@ -19,42 +20,58 @@ class PasswordCriteriaView: UIView {
         return stack
     }()
     
+    var imageView: UIImageView = {
+          let image = UIImageView()
+         //image.image = UIImage(systemName: "checkmark.circle")!.withTintColor(.systemGreen, renderingMode: .alwaysOriginal)
+          image.translatesAutoresizingMaskIntoConstraints = false
+          return image
+      }()
     
-  let imageView: UIImageView = {
-        let image = UIImageView()
-      image.image = UIImage(systemName: "circle")?.withTintColor(.tertiaryLabel, renderingMode: .alwaysOriginal)
-        image.translatesAutoresizingMaskIntoConstraints = false
-        return image
-    }()
+    let checkmarkImage = UIImage(systemName: "checkmark.circle")!.withTintColor(.systemGreen, renderingMode: .alwaysOriginal)
+    let xmarkImage = UIImage(systemName: "xmark.circle")!.withTintColor(.systemRed, renderingMode: .alwaysOriginal)
+    let circleImage = UIImage(systemName: "circle")!.withTintColor(.tertiaryLabel, renderingMode: .alwaysOriginal)
+
+
+    var isCriteriaMet: Bool = false {
+        didSet {
+            if isCriteriaMet {
+                imageView.image = checkmarkImage
+            } else {
+                imageView.image = xmarkImage
+            }
+        }
+    }
+
+    func reset() {
+        isCriteriaMet = false
+        imageView.image = circleImage
+    }
+
     
- let labelView: UILabel = {
+    let textLabel: UILabel = {
         let label = UILabel()
-        label.text = "uppercase letter (A-Z)"
+       // label.text = "uppercase letter (A-Z)"
         label.font = .preferredFont(forTextStyle: .subheadline)
         label.textColor = .secondaryLabel
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     
-    
-    
-
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-         setupView()
-        setConstraints()
+    init(text: String) {
+        textLabel.text = text
+        super.init(frame: .zero)
+        setupView()
+       setConstraints()
+        reset()
     }
-    
-    
+        
     private func setupView() {
         translatesAutoresizingMaskIntoConstraints = false
         addSubview(stackView)
          stackView.addArrangedSubview(imageView)
-        stackView.addArrangedSubview(labelView)
+        stackView.addArrangedSubview(textLabel)
           //backgroundColor = .systemOrange
     }
-    
-    
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -65,9 +82,6 @@ class PasswordCriteriaView: UIView {
         return CGSize(width: 300, height: 40)
         
     }
-    
-    
-    
 }
 extension PasswordCriteriaView {
     func setConstraints() {
@@ -78,7 +92,9 @@ extension PasswordCriteriaView {
             stackView.trailingAnchor.constraint(equalTo: trailingAnchor),
             stackView.bottomAnchor.constraint(equalTo: bottomAnchor),
             
-            imageView.heightAnchor.constraint(equalTo: imageView.widthAnchor)
+            imageView.heightAnchor.constraint(equalTo: imageView.widthAnchor),
+            
+           
         ])
     }
 }

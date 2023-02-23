@@ -9,7 +9,7 @@ import UIKit
 
 class LoginView: UIView {
     
-    var placeHolderText = "New password"
+    var placeHolderText: String
     
     let lockImageView: UIImageView = {
         let imageView = UIImageView(image: UIImage(systemName: "lock.fill"))
@@ -33,7 +33,7 @@ class LoginView: UIView {
         label.font = .preferredFont(forTextStyle: .footnote)
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textColor = .systemRed
-        label.text = "Enter your password"
+        label.text = "Your password must meet the requirement below"
         label.isHidden = false // true
 //        label.adjustsFontSizeToFitWidth = true
 //        label.minimumScaleFactor = 0.8
@@ -50,7 +50,7 @@ class LoginView: UIView {
        field.attributedPlaceholder = NSAttributedString(string: placeHolderText, attributes: [NSAttributedString.Key.foregroundColor: UIColor.secondaryLabel])
        // field.leftView = lockImageView
         //field.backgroundColor = .secondarySystemBackground
-        field.placeholder = "New Password"
+        //field.placeholder = "New Password"
 //        field.heightAnchor.constraint(equalToConstant: 50).isActive = true
 //        field.widthAnchor.constraint(equalToConstant: 300).isActive = true
         field.translatesAutoresizingMaskIntoConstraints = false
@@ -61,7 +61,7 @@ class LoginView: UIView {
     let passwordTextField2: UITextField = {
        let field = UITextField()
         field.backgroundColor = .secondarySystemBackground
-        field.placeholder = "Enter your password."
+       // field.placeholder = "Enter your password."
 //        field.heightAnchor.constraint(equalToConstant: 50).isActive = true
 //        field.widthAnchor.constraint(equalToConstant: 300).isActive = true
         field.translatesAutoresizingMaskIntoConstraints = false
