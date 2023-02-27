@@ -8,8 +8,6 @@
 import UIKit
 
 class PasswordCriteriaView: UIView {
-    
-    
   
     let stackView: UIStackView = {
         let stack = UIStackView()

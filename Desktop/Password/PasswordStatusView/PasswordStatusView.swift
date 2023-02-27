@@ -16,7 +16,8 @@ class PasswordStatusView: UIView {
     let digitCriteriaView = PasswordCriteriaView(text: "digit (0-9)")
     let specialCharacterCriteriaView = PasswordCriteriaView(text: "special character (e.g. !@#$%^)")
     
-        
+        // Used to determine if we reset criteria back to empty state(⚪️).
+    private var shouldResetCriteria: Bool = true
     
     let stackView: UIStackView = {
         let stack = UIStackView()
@@ -66,23 +67,6 @@ class PasswordStatusView: UIView {
         stackView.addArrangedSubview(digitCriteriaView)
         stackView.addArrangedSubview(specialCharacterCriteriaView)
     }
-    
-    
-    private func  makeCriteriaMessage() -> NSAttributedString {
-        var plainTextAttributes = [NSAttributedString.Key: AnyObject]()
-           plainTextAttributes[.font] = UIFont.preferredFont(forTextStyle: .subheadline)
-           plainTextAttributes[.foregroundColor] = UIColor.secondaryLabel
-           
-           var boldTextAttributes = [NSAttributedString.Key: AnyObject]()
-           boldTextAttributes[.foregroundColor] = UIColor.label
-           boldTextAttributes[.font] = UIFont.preferredFont(forTextStyle: .subheadline)
-
-           let attrText = NSMutableAttributedString(string: "Use at least ", attributes: plainTextAttributes)
-           attrText.append(NSAttributedString(string: "3 of these 4 ", attributes: boldTextAttributes))
-           attrText.append(NSAttributedString(string: "criteria when setting your password:", attributes: plainTextAttributes))
-
-           return attrText
-    }
 }
   extension PasswordStatusView {
     private func setupConstraints() {
@@ -92,8 +76,46 @@ class PasswordStatusView: UIView {
             stackView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
             stackView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
             stackView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -16),
-            
-        
         ])
+    }
+}
+
+private func  makeCriteriaMessage() -> NSAttributedString {
+    var plainTextAttributes = [NSAttributedString.Key: AnyObject]()
+       plainTextAttributes[.font] = UIFont.preferredFont(forTextStyle: .subheadline)
+       plainTextAttributes[.foregroundColor] = UIColor.secondaryLabel
+       
+       var boldTextAttributes = [NSAttributedString.Key: AnyObject]()
+       boldTextAttributes[.foregroundColor] = UIColor.label
+       boldTextAttributes[.font] = UIFont.preferredFont(forTextStyle: .subheadline)
+
+       let attrText = NSMutableAttributedString(string: "Use at least ", attributes: plainTextAttributes)
+       attrText.append(NSAttributedString(string: "3 of these 4 ", attributes: boldTextAttributes))
+       attrText.append(NSAttributedString(string: "criteria when setting your password:", attributes: plainTextAttributes))
+
+       return attrText
+}
+// MARK: Actions
+extension PasswordStatusView {
+    func updateDisplay(_ text: String) {
+        
+        let lengthAndNoSpaceMet = PasswordCriteria.lengthAndNoSpacesMet(text)
+        let uppercaseMet = PasswordCriteria.upperCaseMet(text)
+        let lovercaseMet = PasswordCriteria.lowercaseMet(text)
+        let digitsMet = PasswordCriteria.digitMet(text)
+        let spacialCharactersMet = PasswordCriteria.specialCharactersMet(text)
+        
+        if shouldResetCriteria { //Inline validation (🟢 or ⚪️) checkmark
+            
+            lengthAndNoSpaceMet ? lengthCriteriaView.isCriteriaMet = true : lengthCriteriaView.reset()
+            
+            uppercaseMet ? uppercaseCriteriaView.isCriteriaMet = true : uppercaseCriteriaView.reset()
+            
+            lovercaseMet ? lowerCaseCriteriaView.isCriteriaMet = true : lowerCaseCriteriaView.reset()
+            
+            digitsMet ? digitCriteriaView.isCriteriaMet = true :  digitCriteriaView.reset()
+            
+            spacialCharactersMet ? specialCharacterCriteriaView.isCriteriaMet = true : specialCharacterCriteriaView.reset()
+        }
     }
 }

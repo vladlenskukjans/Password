@@ -1,5 +1,5 @@
 //
-//  LoginView.swift
+//  PasswordLoginView.swift
 //  Password
 //
 //  Created by Vladlens Kukjans on 22/02/2023.
@@ -7,7 +7,13 @@
 
 import UIKit
 
-class LoginView: UIView {
+protocol LoginViewTextFieldDelegate: AnyObject {
+    func editingChanged(_ sender: PasswordLoginView)
+}
+
+class PasswordLoginView: UIView {
+    
+    weak var  delegate: LoginViewTextFieldDelegate?
     
     var placeHolderText: String
     
@@ -34,7 +40,7 @@ class LoginView: UIView {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textColor = .systemRed
         label.text = "Your password must meet the requirement below"
-        label.isHidden = false // true
+        label.isHidden = true
 //        label.adjustsFontSizeToFitWidth = true
 //        label.minimumScaleFactor = 0.8
         label.numberOfLines = 0
@@ -42,17 +48,16 @@ class LoginView: UIView {
         return label
     }()
     
-       lazy var passwordTextField1: UITextField = {
-       let field = UITextField()
-       field.isSecureTextEntry = false // true
-      // field.delegate = self
-       field.keyboardType = .asciiCapable
-       field.attributedPlaceholder = NSAttributedString(string: placeHolderText, attributes: [NSAttributedString.Key.foregroundColor: UIColor.secondaryLabel])
-       // field.leftView = lockImageView
-        //field.backgroundColor = .secondarySystemBackground
-        //field.placeholder = "New Password"
-//        field.heightAnchor.constraint(equalToConstant: 50).isActive = true
-//        field.widthAnchor.constraint(equalToConstant: 300).isActive = true
+    lazy var passwordTextField1: UITextField = {
+        let field = UITextField()
+        field.isSecureTextEntry = false // true
+        field.delegate = self
+        field.autocorrectionType = .no
+        field.autocapitalizationType = .none
+        field.keyboardType = .asciiCapable
+        field.attributedPlaceholder = NSAttributedString(string: placeHolderText, attributes: [NSAttributedString.Key.foregroundColor: UIColor.secondaryLabel])
+        field.addTarget(self, action: #selector(textFieldEdetingChanged), for: .editingChanged)
+        
         field.translatesAutoresizingMaskIntoConstraints = false
         //field.layer.cornerRadius = 12
         return field
@@ -60,6 +65,8 @@ class LoginView: UIView {
     
     let passwordTextField2: UITextField = {
        let field = UITextField()
+        field.autocapitalizationType = .none
+        field.keyboardType = .asciiCapable
         field.backgroundColor = .secondarySystemBackground
        // field.placeholder = "Enter your password."
 //        field.heightAnchor.constraint(equalToConstant: 50).isActive = true
@@ -98,9 +105,6 @@ class LoginView: UIView {
         
     }
     
-    
-    
-    
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -110,17 +114,19 @@ class LoginView: UIView {
     }
 
 }
-extension LoginView {
+//MARK: - Actions
+extension PasswordLoginView {
     @objc func togglePasswordView() {
         passwordTextField1.isSecureTextEntry.toggle()
         eyeButtonView.isSelected.toggle()
     }
+    
+    @objc func textFieldEdetingChanged(_ sender: UITextField) {
+        delegate?.editingChanged(self)
+    }
 }
-
-
-
-
-extension LoginView {
+//MARK: - setConstraints
+extension PasswordLoginView {
     private func setConstraints() {
         NSLayoutConstraint.activate([
         
@@ -143,4 +149,9 @@ extension LoginView {
 
         ])
     }
+}
+//MARK: - UITextFieldDelegate
+extension PasswordLoginView: UITextFieldDelegate {
+    
+    
 }

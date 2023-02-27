@@ -8,11 +8,12 @@
 import UIKit
 
 class ViewController: UIViewController {
-    
-    let passwordLoginView = LoginView(placeHolderText: "New password")
+  
+        
+    let newPasswordTextField = PasswordLoginView(placeHolderText: "New password")
    // let passwordCriteriaView = PasswordCriteriaView()
     let statusView = PasswordStatusView()
-    let confirmPasswordTextField = LoginView(placeHolderText: "Re-enter new password")
+    let confirmPasswordTextField = PasswordLoginView(placeHolderText: "Re-enter new password")
     
     let resetButton: UIButton = {
         let button = UIButton(type: .system)
@@ -37,22 +38,14 @@ class ViewController: UIViewController {
         view.backgroundColor = .white
         
         view.addSubview(stackView)
-       stackView.addArrangedSubview(passwordLoginView)
+       stackView.addArrangedSubview(newPasswordTextField)
        // stackView.addArrangedSubview(passwordCriteriaView)
         stackView.addArrangedSubview(statusView)
         stackView.addArrangedSubview(confirmPasswordTextField)
         stackView.addArrangedSubview(resetButton)
-        
+        newPasswordTextField.delegate = self
         setupConstaints()
     }
-    
-    
-    override func viewWillLayoutSubviews() {
-        super.viewWillLayoutSubviews()
-       // passwordLoginView.layer.cornerRadius = 10
-    }
-
-
 }
 
 extension ViewController {
@@ -64,5 +57,14 @@ extension ViewController {
             stackView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
             stackView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
         ])
+    }
+}
+
+//MARK: - PsswordTextFiedDelegate
+extension ViewController: LoginViewTextFieldDelegate {
+    func editingChanged(_ sender: PasswordLoginView) {
+        if sender === newPasswordTextField {
+            statusView.updateDisplay(sender.passwordTextField1.text ?? "")
+        }
     }
 }

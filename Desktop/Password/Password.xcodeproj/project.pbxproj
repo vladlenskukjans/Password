@@ -15,9 +15,10 @@
 		2458560429A65276003AAE28 /* PasswordTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2458560329A65276003AAE28 /* PasswordTests.swift */; };
 		2458560E29A65276003AAE28 /* PasswordUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2458560D29A65276003AAE28 /* PasswordUITests.swift */; };
 		2458561029A65276003AAE28 /* PasswordUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2458560F29A65276003AAE28 /* PasswordUITestsLaunchTests.swift */; };
-		2458561E29A65DB0003AAE28 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2458561D29A65DB0003AAE28 /* LoginView.swift */; };
+		2458561E29A65DB0003AAE28 /* PasswordLoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2458561D29A65DB0003AAE28 /* PasswordLoginView.swift */; };
 		2458562129A77DDF003AAE28 /* PasswordCriteriaView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2458562029A77DDF003AAE28 /* PasswordCriteriaView.swift */; };
 		2458562329A79A2D003AAE28 /* PasswordStatusView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2458562229A79A2D003AAE28 /* PasswordStatusView.swift */; };
+		2458564529ACA92F003AAE28 /* PasswordCriteria.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2458564429ACA92F003AAE28 /* PasswordCriteria.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -50,9 +51,10 @@
 		2458560929A65276003AAE28 /* PasswordUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PasswordUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		2458560D29A65276003AAE28 /* PasswordUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordUITests.swift; sourceTree = "<group>"; };
 		2458560F29A65276003AAE28 /* PasswordUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordUITestsLaunchTests.swift; sourceTree = "<group>"; };
-		2458561D29A65DB0003AAE28 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
+		2458561D29A65DB0003AAE28 /* PasswordLoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordLoginView.swift; sourceTree = "<group>"; };
 		2458562029A77DDF003AAE28 /* PasswordCriteriaView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordCriteriaView.swift; sourceTree = "<group>"; };
 		2458562229A79A2D003AAE28 /* PasswordStatusView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordStatusView.swift; sourceTree = "<group>"; };
+		2458564429ACA92F003AAE28 /* PasswordCriteria.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordCriteria.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -107,7 +109,7 @@
 			children = (
 				245855EE29A65273003AAE28 /* SceneDelegate.swift */,
 				245855F029A65273003AAE28 /* ViewController.swift */,
-				2458561D29A65DB0003AAE28 /* LoginView.swift */,
+				2458561D29A65DB0003AAE28 /* PasswordLoginView.swift */,
 			);
 			path = Password;
 			sourceTree = "<group>";
@@ -146,6 +148,7 @@
 			children = (
 				2458562029A77DDF003AAE28 /* PasswordCriteriaView.swift */,
 				2458562229A79A2D003AAE28 /* PasswordStatusView.swift */,
+				2458564429ACA92F003AAE28 /* PasswordCriteria.swift */,
 			);
 			path = PasswordStatusView;
 			sourceTree = "<group>";
@@ -281,10 +284,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				245855F129A65273003AAE28 /* ViewController.swift in Sources */,
-				2458561E29A65DB0003AAE28 /* LoginView.swift in Sources */,
+				2458561E29A65DB0003AAE28 /* PasswordLoginView.swift in Sources */,
 				2458562129A77DDF003AAE28 /* PasswordCriteriaView.swift in Sources */,
 				2458562329A79A2D003AAE28 /* PasswordStatusView.swift in Sources */,
 				245855ED29A65273003AAE28 /* AppDelegate.swift in Sources */,
+				2458564529ACA92F003AAE28 /* PasswordCriteria.swift in Sources */,
 				245855EF29A65273003AAE28 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
