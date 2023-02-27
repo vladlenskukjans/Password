@@ -7,15 +7,31 @@
 
 import UIKit
 
+
 protocol LoginViewTextFieldDelegate: AnyObject {
     func editingChanged(_ sender: PasswordLoginView)
+    func editingDidEnd(_ sender: PasswordLoginView)
 }
 
 class PasswordLoginView: UIView {
     
-    weak var  delegate: LoginViewTextFieldDelegate?
+    /**
+        A function one passes in to do custom validation on the text field.
+
+        - Parameter: textValue: The value of text to validate
+        - Returns: A Bool indicating whether text is valid, and if not a String containing an error message
+        */
+       typealias CustomValidation = (_ textValue: String?) -> (Bool, String)?
+
     
+    var customValidation: CustomValidation?
+    weak var  delegate: LoginViewTextFieldDelegate?
     var placeHolderText: String
+    
+    var text: String? {
+        get { return passwordTextField1.text }
+        set {  passwordTextField1.text = newValue }
+    }
     
     let lockImageView: UIImageView = {
         let imageView = UIImageView(image: UIImage(systemName: "lock.fill"))
@@ -51,6 +67,7 @@ class PasswordLoginView: UIView {
     lazy var passwordTextField1: UITextField = {
         let field = UITextField()
         field.isSecureTextEntry = false // true
+        //field.clearButtonMode = .always
         field.delegate = self
         field.autocorrectionType = .no
         field.autocapitalizationType = .none
@@ -63,18 +80,18 @@ class PasswordLoginView: UIView {
         return field
     }()
     
-    let passwordTextField2: UITextField = {
-       let field = UITextField()
-        field.autocapitalizationType = .none
-        field.keyboardType = .asciiCapable
-        field.backgroundColor = .secondarySystemBackground
-       // field.placeholder = "Enter your password."
-//        field.heightAnchor.constraint(equalToConstant: 50).isActive = true
-//        field.widthAnchor.constraint(equalToConstant: 300).isActive = true
-        field.translatesAutoresizingMaskIntoConstraints = false
-       // field.layer.cornerRadius = 12
-        return field
-    }()
+//    let passwordTextField2: UITextField = {
+//       let field = UITextField()
+//        field.autocapitalizationType = .none
+//        field.keyboardType = .asciiCapable
+//        field.backgroundColor = .secondarySystemBackground
+//       // field.placeholder = "Enter your password."
+////        field.heightAnchor.constraint(equalToConstant: 50).isActive = true
+////        field.widthAnchor.constraint(equalToConstant: 300).isActive = true
+//        field.translatesAutoresizingMaskIntoConstraints = false
+//       // field.layer.cornerRadius = 12
+//        return field
+//    }()
     
     let lineDividerView: UIView = {
         let view = UIView()
@@ -134,7 +151,7 @@ extension PasswordLoginView {
             lockImageView.leadingAnchor.constraint(equalTo: leadingAnchor),
             
             passwordTextField1.leadingAnchor.constraint(equalTo: lockImageView.trailingAnchor,constant: 8),
-           // passwordTextField1.widthAnchor.constraint(equalToConstant: 200),
+            passwordTextField1.widthAnchor.constraint(equalToConstant: 200),
             
             eyeButtonView.centerYAnchor.constraint(equalTo: passwordTextField1.centerYAnchor),
             eyeButtonView.trailingAnchor.constraint(equalTo: trailingAnchor,constant: -8),
@@ -153,5 +170,39 @@ extension PasswordLoginView {
 //MARK: - UITextFieldDelegate
 extension PasswordLoginView: UITextFieldDelegate {
     
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        delegate?.editingDidEnd(self)
+       }
+
+       // Called when 'return' key pressed. Necessary for dismissing keyboard.
+       func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+           textField.endEditing(true) // resign first responder
+           return true
+       }
+}
+
+// typealias CustomValidation = (_ textValue: String?) -> (Bool, String)?
+
+// MARK: - Validation
+extension PasswordLoginView {
+    func validate() -> Bool {
+        if let customValidation = customValidation,
+            let customValidationResult = customValidation(text),
+            customValidationResult.0 == false {
+            showError(customValidationResult.1)
+            return false
+        }
+        clearError()
+        return true
+    }
     
+    private func showError(_ errorMessage: String) {
+        errorLabel.isHidden = false
+        errorLabel.text = errorMessage
+    }
+
+    private func clearError() {
+        errorLabel.isHidden = true
+        errorLabel.text = ""
+    }
 }
