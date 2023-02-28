@@ -108,15 +108,12 @@ extension PasswordStatusView {
         if shouldResetCriteria { //Inline validation (🟢 or ⚪️) checkmark
             
             lengthAndNoSpaceMet ? lengthCriteriaView.isCriteriaMet = true : lengthCriteriaView.reset()
-            
             uppercaseMet ? uppercaseCriteriaView.isCriteriaMet = true : uppercaseCriteriaView.reset()
-            
             lowercaseMet ? lowerCaseCriteriaView.isCriteriaMet = true : lowerCaseCriteriaView.reset()
-            
             digitsMet ? digitCriteriaView.isCriteriaMet = true :  digitCriteriaView.reset()
-            
             spacialCharactersMet ? specialCharacterCriteriaView.isCriteriaMet = true : specialCharacterCriteriaView.reset()
-        } else {
+            
+          } else {
             // Focus lost (✅ or ❌)
                       lengthCriteriaView.isCriteriaMet = lengthAndNoSpaceMet
                       uppercaseCriteriaView.isCriteriaMet = uppercaseMet
@@ -152,4 +149,3 @@ extension PasswordStatusView {
         specialCharacterCriteriaView.reset()
     }
 }
-

@@ -2,35 +2,85 @@
 //  PasswordTests.swift
 //  PasswordTests
 //
-//  Created by Vladlens Kukjans on 22/02/2023.
+//  Created by Vladlens Kukjans on 28/02/2023.
 //
 
 import XCTest
+
+
 @testable import Password
 
-final class PasswordTests: XCTestCase {
-
-    override func setUpWithError() throws {
-        // Put setup code here. This method is called before the invocation of each test method in the class.
+class PasswordLengthCriteriaTests: XCTestCase {
+    
+    // Boundary conditions 8-32
+    
+    func testShort() throws {
+        XCTAssertFalse(PasswordCriteria.lengthCriteriaMet("1234567"))
+    }
+    
+    func testLong() throws { //33
+        XCTAssertFalse(PasswordCriteria.lengthCriteriaMet("123456789123456789123456789123456"))
+    }
+    
+    func testValidShort() throws { //8
+        XCTAssertTrue(PasswordCriteria.lengthCriteriaMet("12345678"))
     }
 
-    override func tearDownWithError() throws {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
+    func testValidLong() throws { //32
+        XCTAssertTrue(PasswordCriteria.lengthCriteriaMet("12345678912345678912345678912345"))
     }
-
-    func testExample() throws {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
-        // Any test you write for XCTest can be annotated as throws and async.
-        // Mark your test throws to produce an unexpected failure when your test encounters an uncaught error.
-        // Mark your test async to allow awaiting for asynchronous code to complete. Check the results with assertions afterwards.
+}
+    
+class PasswordOtherCriteriaTests: XCTestCase {
+    
+    func testSpaceMet() throws {
+        XCTAssertTrue(PasswordCriteria.noSpaceCriteriaMet("abc"))
     }
-
-    func testPerformanceExample() throws {
-        // This is an example of a performance test case.
-        self.measure {
-            // Put the code you want to measure the time of here.
-        }
+    
+    
+    func testSpaceNotMet() throws {
+        XCTAssertFalse(PasswordCriteria.noSpaceCriteriaMet("ab cd"))
     }
-
+    
+    
+    func testLengthAndSpaceMet() throws {
+        XCTAssertTrue(PasswordCriteria.lengthAndNoSpacesMet("12345678"))
+    }
+    
+    func testLengthAndSpaceNotMet() throws {
+        XCTAssertFalse(PasswordCriteria.lengthAndNoSpacesMet("1234567 8"))
+    }
+    
+    func testUppercaseMet() throws {
+        XCTAssertTrue(PasswordCriteria.upperCaseMet("A"))
+    }
+    
+    func testUppercaseNotMet() throws {
+        XCTAssertFalse(PasswordCriteria.upperCaseMet("a"))
+    }
+    
+    
+    func testLowerCaseMet() throws {
+        XCTAssertTrue(PasswordCriteria.lowercaseMet("v"))
+    }
+    
+    func testLowerCaseNotMet() throws {
+        XCTAssertFalse(PasswordCriteria.lowercaseMet("V"))
+    }
+    
+    func testDigitMet() throws {
+        XCTAssertTrue(PasswordCriteria.digitMet("89"))
+    }
+    
+    func testDigitNotMet() throws {
+        XCTAssertFalse(PasswordCriteria.digitMet("v"))
+    }
+    
+    func testSpecialCharactersMet() throws {
+        XCTAssertTrue(PasswordCriteria.specialCharactersMet("@"))
+    }
+    
+    func testSpecialCharactersNotMet() throws {
+        XCTAssertFalse(PasswordCriteria.specialCharactersMet("v"))
+    }
 }

@@ -9,6 +9,7 @@ import UIKit
 
 class ViewController: UIViewController {
     
+    var alert: UIAlertController? // for tests
     
     typealias CustomValidation = PasswordLoginView.CustomValidation
     
@@ -16,7 +17,7 @@ class ViewController: UIViewController {
     let statusView = PasswordStatusView()
     let confirmPasswordTextField = PasswordLoginView(placeHolderText: "Re-enter new password")
     
-    let resetButton: UIButton = {
+    lazy var resetButton: UIButton = {
         let button = UIButton(type: .system)
         button.configuration = .filled()
         button.setTitle("Resset password", for: .normal)
@@ -197,11 +198,24 @@ extension ViewController {
         }
     }
     private func showAlert(title: String, message: String) {
-        let alert =  UIAlertController(title: "", message: "", preferredStyle: .alert)
+         alert =  UIAlertController(title: "", message: "", preferredStyle: .alert)
+        guard let alert = alert else { return }
         alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
 
         alert.title = title
         alert.message = message
         present(alert, animated: true, completion: nil)
+    }
+}
+// MARK: Tests
+extension ViewController {
+    var newPasswordText: String? {
+        get { return newPasswordTextField.text }
+        set { newPasswordTextField.text = newValue}
+    }
+    
+    var confirmPasswordText: String? {
+        get { return confirmPasswordTextField.text }
+        set { confirmPasswordTextField.text = newValue}
     }
 }
